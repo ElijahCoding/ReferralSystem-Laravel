@@ -1,12 +1,12 @@
 @component('mail::message')
-# Introduction
+    # {{ $sender->name }} has invited you to Codecourse
 
-The body of your message.
+    You'll get 50% off your first payment
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+    @component('mail::button', ['url' => route('register', ['referral' => $referral->token])])
+        Sign up now
+    @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
+    Thanks,<br>
+    {{ config('app.name') }}
 @endcomponent
