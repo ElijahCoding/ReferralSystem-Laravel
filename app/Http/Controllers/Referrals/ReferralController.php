@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ReferralController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('referrals.index');
@@ -14,6 +19,8 @@ class ReferralController extends Controller
 
     public function store(Request $request)
     {
+        $request->user()->referrals()->create($request->only('email'));
 
+        return back();
     }
 }
