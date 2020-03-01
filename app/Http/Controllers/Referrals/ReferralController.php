@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Referrals;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Referrals\ReferralReceived;
+use App\Referral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReferralController extends Controller
 {
@@ -14,12 +17,18 @@ class ReferralController extends Controller
 
     public function index()
     {
-        return view('referrals.index');
+        $referrals = Referral::get();
+
+        return view('referrals.index', compact('referrals'));
     }
 
     public function store(Request $request)
     {
-        $request->user()->referrals()->create($request->only('email'));
+        $referral = $request->user()->referrals()->create($request->only('email'));
+
+        Mail::to($referral->email)->send(
+            new ReferralReceived($request->user(), $referral)
+        );
 
         return back();
     }

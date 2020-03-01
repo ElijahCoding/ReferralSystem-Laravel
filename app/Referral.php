@@ -21,4 +21,9 @@ class Referral extends Model
             $referral->token = Str::random(50);
         });
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
