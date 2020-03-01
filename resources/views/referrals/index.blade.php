@@ -26,13 +26,13 @@
                                         <td>
                                             {{ $referral->created_at->toDateString() }}
                                         </td>
-{{--                                        <td>--}}
-{{--                                            @if($referral->completed)--}}
-{{--                                                Yes--}}
-{{--                                            @else--}}
-{{--                                                No &nbsp; <a href="{{ route('index', ['referral' => $referral->token]) }}" target="_blank">Get link</a>--}}
-{{--                                            @endif--}}
-{{--                                        </td>--}}
+                                        <td>
+                                            @if($referral->completed)
+                                                Yes
+                                            @else
+                                                No &nbsp;<a href="{{ route('index', ['referral' => $referral->token]) }}" target="_blank">Get link</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

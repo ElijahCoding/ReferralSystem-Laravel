@@ -17,7 +17,7 @@ class ReferralController extends Controller
 
     public function index()
     {
-        $referrals = Referral::get();
+        $referrals = request()->user()->referrals()->orderBy('completed', 'asc')->get();
 
         return view('referrals.index', compact('referrals'));
     }
