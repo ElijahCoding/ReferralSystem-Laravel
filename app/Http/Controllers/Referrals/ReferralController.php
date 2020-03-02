@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Referrals;
 use App\Http\Controllers\Controller;
 use App\Mail\Referrals\ReferralReceived;
 use App\Referral;
+use App\Rules\NotReferringExisting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -24,6 +25,14 @@ class ReferralController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'email' => [
+                'required',
+                'email',
+                new NotReferringExisting()
+            ]
+        ]);
+
         $referral = $request->user()->referrals()->create($request->only('email'));
 
         Mail::to($referral->email)->send(
