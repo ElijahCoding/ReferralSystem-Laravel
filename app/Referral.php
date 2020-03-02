@@ -37,7 +37,13 @@ class Referral extends Model
         return $builder->where('user_id', '!=', $user->id);
     }
 
-
+    public function complete()
+    {
+        $this->update([
+           'completed' => true,
+           'completed_at' => now()
+        ]);
+    }
 
     public function user()
     {

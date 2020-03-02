@@ -12,8 +12,12 @@ class SubscriptionController extends Controller
         return view('subscriptions.index');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        if ($referral = $request->referral(request()->cookie('referral'))) {
+            $referral->complete();
+        }
 
+        return redirect()->route('home');
     }
 }
