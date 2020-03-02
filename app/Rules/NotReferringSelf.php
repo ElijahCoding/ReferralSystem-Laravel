@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\User;
 use Illuminate\Contracts\Validation\Rule;
 
-class NotReferringExisting implements Rule
+class NotReferringSelf implements Rule
 {
     protected $user;
 
@@ -28,9 +28,10 @@ class NotReferringExisting implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ($this->user->referrals->contains('email', $value)) {
+        if ($value === $this->user->email) {
             return false;
         }
+
         return true;
     }
 
