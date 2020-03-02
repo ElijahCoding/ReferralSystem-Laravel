@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Mail\Referrals\ReferralReceived;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -43,6 +44,8 @@ class Referral extends Model
            'completed' => true,
            'completed_at' => now()
         ]);
+
+        event(new ReferralReceived($this));
     }
 
     public function user()
